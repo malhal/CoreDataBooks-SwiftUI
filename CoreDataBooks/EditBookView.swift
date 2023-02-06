@@ -125,13 +125,13 @@ struct EditBookView: View {
 
 
 
-//struct AddView_Previews: PreviewProvider {
+//struct EditBookView_Previews: PreviewProvider {
 //    
 //    struct AddViewContainer: View {
-//        @State var config = AddConfig()
+//        //@State var config = AddConfig()
 //        
 //        var body: some View {
-//            AddView(config: $config)
+//            EditBookView()
 //        }
 //    }
 //    
