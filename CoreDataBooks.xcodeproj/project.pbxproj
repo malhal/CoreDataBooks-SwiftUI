@@ -13,6 +13,8 @@
 		EC134A0D299114A100D48645 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC134A0C299114A100D48645 /* Preview Assets.xcassets */; };
 		EC134A0F299114A100D48645 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC134A0E299114A100D48645 /* Persistence.swift */; };
 		EC134A12299114A100D48645 /* CoreDataBooks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC134A10299114A100D48645 /* CoreDataBooks.xcdatamodeld */; };
+		EC134A19299127B000D48645 /* EditBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC134A18299127B000D48645 /* EditBookView.swift */; };
+		EC134A1B2991621500D48645 /* BookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC134A1A2991621500D48645 /* BookDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		EC134A0C299114A100D48645 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EC134A0E299114A100D48645 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		EC134A11299114A100D48645 /* CoreDataBooks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataBooks.xcdatamodel; sourceTree = "<group>"; };
+		EC134A18299127B000D48645 /* EditBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookView.swift; sourceTree = "<group>"; };
+		EC134A1A2991621500D48645 /* BookDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 			children = (
 				EC134A05299114A000D48645 /* CoreDataBooksApp.swift */,
 				EC134A07299114A000D48645 /* ContentView.swift */,
+				EC134A1A2991621500D48645 /* BookDetail.swift */,
+				EC134A18299127B000D48645 /* EditBookView.swift */,
 				EC134A09299114A100D48645 /* Assets.xcassets */,
 				EC134A0E299114A100D48645 /* Persistence.swift */,
 				EC134A10299114A100D48645 /* CoreDataBooks.xcdatamodeld */,
@@ -145,6 +151,8 @@
 			files = (
 				EC134A0F299114A100D48645 /* Persistence.swift in Sources */,
 				EC134A08299114A000D48645 /* ContentView.swift in Sources */,
+				EC134A1B2991621500D48645 /* BookDetail.swift in Sources */,
+				EC134A19299127B000D48645 /* EditBookView.swift in Sources */,
 				EC134A06299114A000D48645 /* CoreDataBooksApp.swift in Sources */,
 				EC134A12299114A100D48645 /* CoreDataBooks.xcdatamodeld in Sources */,
 			);

@@ -19,34 +19,34 @@ struct ContentView: View {
 //        animation: .default)
 //    private var items: FetchedResults<Item>
 
+    //@State var addConfig = AddConfig()
+    @State var addConfig: AddConfig?
+    
     var body: some View {
         NavigationView {
             List {
                 ForEach(sections) { section in
                     Section(section.id) {
                         ForEach(section) { book in
-                            Text(book.title!)
+                            NavigationLink {
+                                //Text(book.title!)
+                                BookDetail(book: book)
+                            } label: {
+                                Text(book.title!)
+                            }
                         }
                         .onDelete { indexSet in
                             deleteItems(section: section, offsets: indexSet)
                         }
                     }
-//                    NavigationLink {
-//                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-//                    } label: {
-//                        Text(item.timestamp!, formatter: itemFormatter)
-//                    }
                 }
-                
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+                    EditBookButton(existingBookID: nil)
                 }
             }
             Text("Select an item")
