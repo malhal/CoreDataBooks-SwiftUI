@@ -77,18 +77,18 @@ struct BookForm: View {
 }
 
 struct EditBookView: View {
-    //@Binding var config: AddConfig
+    
     @ObservedObject var book: Book
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     let saveAction: (() -> Void)
     @Environment(\.managedObjectContext) private var addingContext
-    @State var message = ""
+    @State private var message = ""
     
     var body: some View {
         NavigationView {
             BookForm(book: book, message: message)
             
-            .navigationTitle("New Book")
+            
             .navigationBarTitleDisplayMode(.inline)
             
             .toolbar {
@@ -104,7 +104,7 @@ struct EditBookView: View {
                         do {
                             try addingContext.save()
                             saveAction()
-                            //dismiss()
+                            dismiss()
                             message = ""
                         }
                         catch {

@@ -35,6 +35,13 @@ struct PersistenceController {
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        
+        
+        let exists = FileManager().fileExists(atPath: container.persistentStoreDescriptions.first!.url!.path)
+        
+        
+        
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -52,5 +59,18 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        
+        if !exists {
+            var book = Book(context: container.viewContext)
+            book.title = "Strata"
+            book.author = "Terry Pratchett"
+            
+            book = Book(context: container.viewContext)
+            book.title = "Moving Pictures"
+            book.author = "Terry Pratchett"
+            
+            
+            try? container.viewContext.save()
+        }
     }
 }

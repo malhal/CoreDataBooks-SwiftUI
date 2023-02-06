@@ -26,7 +26,7 @@ struct EditBookButton: View {
             }
         }
         .sheet(item: $addConfig, onDismiss: {
-            print("Dismiss")
+            // what could I do here?
         }, content: { item in
             EditBookView(book: item.book) {
                 do {
@@ -37,9 +37,9 @@ struct EditBookButton: View {
                     let nsError = error as NSError
                     fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
                 }
-                addConfig = nil
             }
             .environment(\.managedObjectContext, item.managedObjectContext)
+            .navigationTitle(existingBookID == nil ? "New Book" : "Edit Book")
             
         })
     }
