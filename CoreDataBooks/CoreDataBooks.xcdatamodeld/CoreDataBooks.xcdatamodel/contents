@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Book" representedClassName="Book" syncable="YES" codeGenerationType="class">
+        <attribute name="author" attributeType="String" defaultValueString="Author"/>
+        <attribute name="copyright" optional="YES" attributeType="Date" defaultDateTimeInterval="697374420" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String" defaultValueString="Title"/>
+    </entity>
+</model>
