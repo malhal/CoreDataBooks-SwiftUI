@@ -10,15 +10,15 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @SectionedFetchRequest(sectionIdentifier: \.author!, sortDescriptors: [SortDescriptor(\.author), SortDescriptor(\.title)])
     private var sections: SectionedFetchResults<String, Book>
-
-    @State private var addConfig: AddConfig?
+    
+    @State var selection: Book?
     
     var body: some View {
-        NavigationStack {
-            List {
+        NavigationSplitView {
+            List(selection: $selection) {
                 ForEach(sections) { section in
                     Section(section.id) {
                         ForEach(section) { book in
@@ -32,44 +32,30 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationDestination(for: Book.self) { book in
-                BookDetail(book: book)
-            }
+            .listStyle(.plain)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
-                ToolbarItem {
-                    EditBookButton(existingBookID: nil)
+                ToolbarItem(placement: .primaryAction) {
+                    BookSheetButton()
                 }
             }
-           // Text("Select an item")
+        } detail: { //  [selection] in
+            // bug: in ipad landscape, when the selected item is deleted the selection isn't set to nil and book detail shows a book with empty properties
+            if let book = selection {
+                BookDetail(book: book)
+            }
+            else {
+                Text("Select a book")
+            }
         }
+        
     }
-
-//    private func addItem() {
-//        withAnimation {
-////            let newItem = Item(context: viewContext)
-////            newItem.timestamp = Date()
-//
-//            let book = Book(context: viewContext)
-//
-//
-//            do {
-//                try viewContext.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
 
     private func deleteItems(section: SectionedFetchResults<String, Book>.Section, offsets: IndexSet) {
         withAnimation {
             
-            //offsets.map { offset in sections[offset][$1] }.forEach(viewContext.delete)
             offsets.map { section[$0] }.forEach(viewContext.delete)
 
             do {

@@ -15,6 +15,7 @@
 		EC134A12299114A100D48645 /* CoreDataBooks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC134A10299114A100D48645 /* CoreDataBooks.xcdatamodeld */; };
 		EC134A19299127B000D48645 /* EditBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC134A18299127B000D48645 /* EditBookView.swift */; };
 		EC134A1B2991621500D48645 /* BookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC134A1A2991621500D48645 /* BookDetail.swift */; };
+		ECDBE941299BA4DE00C90104 /* BookSheetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDBE940299BA4DE00C90104 /* BookSheetButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		EC134A11299114A100D48645 /* CoreDataBooks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataBooks.xcdatamodel; sourceTree = "<group>"; };
 		EC134A18299127B000D48645 /* EditBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookView.swift; sourceTree = "<group>"; };
 		EC134A1A2991621500D48645 /* BookDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetail.swift; sourceTree = "<group>"; };
+		ECDBE940299BA4DE00C90104 /* BookSheetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSheetButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				EC134A05299114A000D48645 /* CoreDataBooksApp.swift */,
 				EC134A07299114A000D48645 /* ContentView.swift */,
 				EC134A1A2991621500D48645 /* BookDetail.swift */,
+				ECDBE940299BA4DE00C90104 /* BookSheetButton.swift */,
 				EC134A18299127B000D48645 /* EditBookView.swift */,
 				EC134A09299114A100D48645 /* Assets.xcassets */,
 				EC134A0E299114A100D48645 /* Persistence.swift */,
@@ -152,6 +155,7 @@
 				EC134A0F299114A100D48645 /* Persistence.swift in Sources */,
 				EC134A08299114A000D48645 /* ContentView.swift in Sources */,
 				EC134A1B2991621500D48645 /* BookDetail.swift in Sources */,
+				ECDBE941299BA4DE00C90104 /* BookSheetButton.swift in Sources */,
 				EC134A19299127B000D48645 /* EditBookView.swift in Sources */,
 				EC134A06299114A000D48645 /* CoreDataBooksApp.swift in Sources */,
 				EC134A12299114A100D48645 /* CoreDataBooks.xcdatamodeld in Sources */,
@@ -211,7 +215,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -265,7 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

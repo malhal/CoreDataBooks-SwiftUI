@@ -13,10 +13,12 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Book(context: viewContext)
-//            newItem.timestamp = Date()
-        }
+        //for _ in 0..<10 {
+//            let newItem = Book(context: viewContext)
+//            newItem.title = "Strata"
+//            newItem.author = "Terry Pratchett"
+//            newItem.copyright = Date()
+       // }
         do {
             try viewContext.save()
         } catch {
@@ -32,15 +34,13 @@ struct PersistenceController {
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "CoreDataBooks")
+        var addSampleBooks = true
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
-        
-        
-        let exists = FileManager().fileExists(atPath: container.persistentStoreDescriptions.first!.url!.path)
-        
-        
-        
+        else {
+            addSampleBooks = FileManager().fileExists(atPath: container.persistentStoreDescriptions.first!.url!.path) == false
+        }
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -60,17 +60,22 @@ struct PersistenceController {
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
         
-        if !exists {
+      
+        if addSampleBooks {
             var book = Book(context: container.viewContext)
             book.title = "Strata"
             book.author = "Terry Pratchett"
-            
+            book.copyright = Date()
             book = Book(context: container.viewContext)
             book.title = "Moving Pictures"
             book.author = "Terry Pratchett"
-            
-            
-            try? container.viewContext.save()
+            book.copyright = Date()
+            do {
+                try container.viewContext.save()
+            }
+            catch {
+                print("Failed to add sample books: \(error.localizedDescription)")
+            }
         }
     }
 }

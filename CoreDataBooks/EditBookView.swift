@@ -8,118 +8,98 @@
 import SwiftUI
 import CoreData
 
-struct AddConfig: Identifiable {
-    var id: NSManagedObjectContext {
-        managedObjectContext
-    }
-    
-    var managedObjectContext: NSManagedObjectContext
-    var book: Book
-    
-    init(parentContext: NSManagedObjectContext, existingBookID: NSManagedObjectID? = nil) {
-        let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        moc.parent = parentContext
-        
-        let book: Book
-        if let existingBookID {
-            book = moc.object(with: existingBookID) as! Book
-        }
-        else {
-            book = Book(context: moc)
-        }
-        
-        self.managedObjectContext = moc
-        self.book = book
-    }
+// https://forums.swift.org/t/help-me-with-writing-generic-func-on-extension-swiftui-binding/57698
+public func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
+    Binding(
+        get: { lhs.wrappedValue ?? rhs },
+        set: { lhs.wrappedValue = $0 }
+    )
 }
 
-struct BookForm: View {
+struct EditBookView: View {
     @ObservedObject var book: Book
-    let message: String
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.managedObjectContext) private var viewContext
+    @State private var message = ""
     
     var body: some View {
         Form {
             Section{
                 LabeledContent {
-                    TextField("Title", text: Binding($book.title)!, prompt: Text("e.g. Great Expectations"))
-                        .textContentType(.name)
-                        .foregroundColor(.accentColor)
+                    TextField("Title",
+                              text: $book.title ?? "",
+                              prompt: Text("e.g. Great Expectations"))
+                    .textContentType(.name)
                 } label: {
                     Text("Title")
-                    //  .bold()
                 }
                 
                 LabeledContent {
-                    TextField("Author", text: Binding($book.author)!, prompt: Text("e.g. Charles Dickens"))
+                    TextField("Author", text: $book.author ?? "", prompt: Text("e.g. Charles Dickens"))
                         .textContentType(.name)
-                        .foregroundColor(.accentColor)
                     
                 } label: {
                     Text("Author")
-                    //   .bold()
-                    
-                }
-                // LabeledContent("Copyright") {
-                DatePicker(selection: Binding($book.copyright)!, displayedComponents: [.date]) {
-                    Text("Copyright")
-                    //   .bold()
                 }
                 
-                //   }
+                LabeledContent {
+                    Picker("", selection: Binding<Int>(get: {
+                        let calendar = Calendar.current
+                        let components = calendar.dateComponents([.year], from: book.copyright ?? Date())
+                        let year = components.year
+                        return year!
+                    }, set: { v in
+                        let calendar = Calendar.current
+                        let components = DateComponents(calendar: calendar, year: v)
+                        book.copyright = components.date
+                    })) {
+                        ForEach(1800..<2050) { i in // todo allow any year.
+                            Text(String(i)).tag(i)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                } label: {
+                    Text("Copyright")
+                }
             } footer: {
-                Text(message)
-                    .foregroundColor(.red)
+                HStack {
+                    Spacer()
+                    Text(message)
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+                   
             }
             .autocorrectionDisabled(true)
             .multilineTextAlignment(.trailing)
         }
-    }
-}
-
-struct EditBookView: View {
-    
-    @ObservedObject var book: Book
-    @Environment(\.dismiss) private var dismiss
-    let saveAction: (() -> Void)
-    @Environment(\.managedObjectContext) private var addingContext
-    @State private var message = ""
-    
-    var body: some View {
-        NavigationView {
-            BookForm(book: book, message: message)
-            
-            
-            .navigationBarTitleDisplayMode(.inline)
-            
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", role: .cancel) {
-                        //   config.cancel()
-                        dismiss()
-                    }
+        
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel", role: .cancel) {
+                    //config.cancel()
+                    dismiss()
                 }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button( "Save") {
-                        //   config.cancel()
-                        do {
-                            try addingContext.save()
-                            saveAction()
-                            dismiss()
-                            message = ""
-                        }
-                        catch {
-                            // Replace this implementation with code to handle the error appropriately.
-                            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                            //let nsError = error as NSError
-                            //fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-                            message = error.localizedDescription
-                        }
-                        
-                        
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button( "Save") {
+                    do {
+                        try viewContext.save()
+                        //saveAction()
+                        dismiss()
+                        message = ""
+                    }
+                    catch {
+                        // Replace this implementation with code to handle the error appropriately.
+                        // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                        //let nsError = error as NSError
+                        //fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                        message = error.localizedDescription
                     }
                 }
             }
         }
+        
     }
 }
 
